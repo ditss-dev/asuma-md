@@ -1,0 +1,5 @@
+>> Razaq-Plugin : popp@V1.0.0
+ 
+ * Recode ESM => CJS
+ * Extension Number: #1
+ * Description: Hanya sebuat extensi untuk bot gumdramon md, tolong jangan ubah ptz atau nama socket nya, jika masih memaksa dan nama sockets dan index berubah dan berbeda, fitur ini akan error.

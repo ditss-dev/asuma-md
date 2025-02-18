@@ -1,0 +1,4 @@
+>> Cjs-Plugin : Basic plugin export
+ 
+ * Extension Number: #2
+ * Description: Hanya sebuat extensi untuk bot gumdramon md, tolong jangan ubah ptz atau nama socket nya, jika masih memaksa dan nama sockets dan index berubah dan berbeda, fitur ini akan error.
