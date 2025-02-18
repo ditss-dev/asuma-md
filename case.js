@@ -641,15 +641,6 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
             console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.white(chalk.bgMagenta(new Date)), chalk.black(chalk.bgWhite(budy || m.mtype)) + '\n' + chalk.white('=> From'), chalk.magenta(pushname), chalk.magenta(m.sender))
         }
         
- const folderlenght = (folderPath) => {
- fs.readdir(folderPath)
-  .then(files => {
-    return files.length;
-  })
-  .catch(err => {
-    console.error(err);
-  });
-    }
         async function totalfiturr() {
             const fitur1 = () => {
                 var mytext = fs.readFileSync("./case.js").toString()
@@ -662,13 +653,9 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
                 return numUpper
             }
                 const resulto = fitur1 + fitur2
-                const plug1 = folderlenght("./lib/extension/@Cjs-Plugin/plugins")
-                const plug2 = folderlenght("./lib/extension/@Razaq-Plugin/plugins")
-                const resultoplug = plug1 + plug2
                 
                 return {
-                casee: resulto,
-                plugiin: resultoplug
+                casee: resulto
                 }
         }
 
@@ -1037,7 +1024,7 @@ Silahkan pilih suit di bot.`, m, {
         const sewa = JSON.parse(fs.readFileSync('./lib/database/sewa.json'));
         const _sewa = require('./lib/importe/sewa')
         const Jhdb = JSON.parse(fs.readFileSync('./lib/database/bot.json'));
-        console.log(ptz.user.id + Jhdb.id)
+
         if (ptz.user.id === Jhdb.id) {
        _sewa.expiredCheck(ptz, sewa)
        _sewa.cekJadibot(jadibotJson1, ptz)
@@ -2882,7 +2869,6 @@ await ptz.sendMessage(m.chat, { document: fs.readFileSync("./lib/database/contac
 contacts.splice(0, contacts.length)
 fs.writeFileSync("./lib/database/contacts.json", JSON.stringify(contacts))
 }
-}
 break
 case "pushkontakv2":{
 if (!isCreator) return reply(mess.owner)
@@ -2936,11 +2922,11 @@ break
 case "pushkontakv3":
 if (!isCreator) return reply(mess.owner)
 if (!text) return reply(`Penggunaan Salah Silahkan Gunakan Command Seperti Ini\n${prefix+command} idgroup|jeda|teks\nUntuk Liat Id Group Silahkan Ketik .idgroup`)
-const groupMetadataa = !isGroup? await ptz.groupMetadata(`${q.split("|")[0]}@g.us`).catch(e => {}) : ""
-const participantss = !isGroup? await groupMetadataa.participants : ""
-const halls = await participantss.filter(v => v.id.endsWith('.net')).map(v => v.id)
+const groupMetadataax = !isGroup? await ptz.groupMetadata(`${q.split("|")[0]}@g.us`).catch(e => {}) : ""
+const participantss = !isGroup? await groupMetadataax.participants : ""
+const haxlls = await participantss.filter(v => v.id.endsWith('.net')).map(v => v.id)
 global.tekspushkonv3 = q.split("|")[2]
-for (let mem of halls) {
+for (let mem of haxlls) {
 if (/image/.test(mime)) {
 media = await ptz.downloadAndSaveMediaMessage(quoted)
 memk = await TelegraPh(media)
