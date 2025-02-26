@@ -1,12 +1,14 @@
 <h1 align="center">Gumdramon Multi device<br></h1>
 
 <p align="center"> 
-  Bot whatsapp dengan tema Digimon yang di kembangkan oleh kiyo ( ZIYO ) script ini memiliki banyak perubahan nama dan tentunya bot ini telah memakai Baileys WS(MULTI-DEVICE)
+  Bot whatsapp dengan tema Digimon yang di kembangkan oleh kiyo ( ZIYO ) script ini memiliki banyak perubahan nama dan tentunya bot ini telah memakai Baileys(MD)
 </p>
-</br>
 
+<p align="center"> 
+  Tentang Script ini
 Base Dari : @Siputzx 
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
+<\p>
 
 
 ## Info dari pusat
