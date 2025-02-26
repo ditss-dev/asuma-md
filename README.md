@@ -1,9 +1,11 @@
 ### [  Script ini Support Panel & Termux  ]
 
-_Base Dari : @Siputzx 
-Bot Remake Oleh : @kiyoo-rdg_ < {CREATOR}
+Base Dari : @Siputzx 
+Bot Remake Oleh : @kiyoo-rdg {CREATOR}
 
-Info : Teruntuk subscriber dan creator bot whatsapp telah
+
+## Info dari pusat
+Teruntuk subscriber dan creator bot whatsapp telah
 membuat base dan telah menyediakan fitur bahkan untuk penyebar
 script, yang sudah menyebar script ini untuk lebih mengenal 
 bot buatan saya, saya sangat senang jika ada yang terhibur
