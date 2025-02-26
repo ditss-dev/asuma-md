@@ -20,7 +20,7 @@ buat nya bareng bareng lagi, Salam dari kiyo & Terimakasih.
 
 # Instalasi
 
-Setup biasa
+**Setup biasa Untuk jalankan bot**
 
 ```
 $ cd ./your-path
@@ -28,18 +28,22 @@ $ npm install
 $ npm start
 ```
 
-> Recomendation ( Jika error )
+**Setup rekomendasi ( Jika error )**
 
+```
 $ cd ./your-path
 $ yarn --no-bin-links
 $ npm start
+```
 
-> Setup dengan git
+**Setup dengan git**
 
+```
 $ git clone https://github.com/pixiel-kiyo/R9-Gumdramon
 $ cd ./R9-Gumdramon
 $ npm install
 $ npm start
+```
 
 dibutuhkan : nodejs runtime, ffmpeg, libwebp, wget, yarn, git ( opsional )
 warning : jika gyp error biarkan saja, memang belum support ke android.
