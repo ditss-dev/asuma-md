@@ -10,7 +10,7 @@
 <b align="center">
 Base Dari : @Siputzx
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
-
+</b>
 
 ## Info dari pusat
 Teruntuk subscriber dan creator bot whatsapp telah
