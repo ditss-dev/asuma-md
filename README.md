@@ -1,7 +1,7 @@
-**```[  Script ini Support Panel & Termux  ]```**
+# [  Script ini Support Panel & Termux  ]
 
-Base Dari : @Siputzx 
-Bot Remake Oleh : @kiyoo-rdg {CREATOR}
+_Base Dari : @Siputzx 
+Bot Remake Oleh : @kiyoo-rdg_ < {CREATOR}
 
 Info : Teruntuk subscriber dan creator bot whatsapp telah
 membuat base dan telah menyediakan fitur bahkan untuk penyebar
