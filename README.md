@@ -93,10 +93,10 @@ $ apt install yarn git
  * Youtube : @kiyoo-rdg
  * Github : pixiel-kiyo
 
-## Konfigurasi bot
+# Konfigurasi bot
 
- masuk ke dalam folder lib terus klik folder system dan klik file
-config.js, itu adalah konfigurasi bot untuk menyeting owner dan lain-lain.
+ masuk ke dalam ```folder lib``` terus klik folder **system** dan klik file
+```config.js```, itu adalah konfigurasi bot untuk menyeting owner dan lain-lain.
 
 ### Sebuah catatan dari atmin 
 
