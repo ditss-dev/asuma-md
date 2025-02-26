@@ -45,7 +45,8 @@ $ npm install
 $ npm start
 ```
 
-dibutuhkan : nodejs runtime, ffmpeg, libwebp, wget, yarn, git ( opsional )
+## Package yang dibutuh kan
+nodejs runtime, ffmpeg, libwebp, wget, yarn, git ( opsional )
 
 * [Node.js](https://nodejs.org/en/)
 
@@ -55,8 +56,11 @@ dibutuhkan : nodejs runtime, ffmpeg, libwebp, wget, yarn, git ( opsional )
 
 * [Libwebp](https://developers.google.com/speed/webp/download)
 
-warning : jika gyp error biarkan saja, memang belum support ke android.
-untuk panel : upload file nya dan unarchive kalo sudah di upload, lalu start server.
+* [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
+
+**Warning :** jika gyp error biarkan saja, memang belum support ke android.
+
+**untuk panel :** upload file nya dan unarchive kalo sudah di upload, lalu start server.
  
  * Group :
  -> https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
