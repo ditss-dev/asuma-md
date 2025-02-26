@@ -1,6 +1,3 @@
-<img src ="https://files.catbox.moe/4jrfbx.jpg" alt ="gumdramon">
-
-
 <h1 align="center"> Gumdramon - MD <br></h1>
 
 <p align="center"> 
@@ -75,6 +72,8 @@ $ apt install yarn git
 **Warning :** jika ```gyp error``` biarkan saja, memang belum support ke **android**.
 
 **Untuk panel :** ```upload file``` nya dan ```unarchive``` kalo sudah di **upload**, lalu ```start```server.
+
+<img src ="https://files.catbox.moe/4jrfbx.jpg" alt ="gumdramon">
 
 ## Berkomunikasi dengan atmin  
 
