@@ -61,7 +61,7 @@ $ npm start
 
 ### Package Install
 
-**For termux user and linux - terminal**
+**Untuk termux user dan linux - terminal**
 
 ```
 $ apt upgrade
@@ -72,9 +72,9 @@ $ apt install yarn git
 
 **Warning :** jika gyp error biarkan saja, memang belum support ke android.
 
-**untuk panel :** upload file nya dan unarchive kalo sudah di upload, lalu start server.
+**Untuk panel :** upload file nya dan unarchive kalo sudah di upload, lalu start server.
 
-### Berkomunikasi dengan atmin  
+## Berkomunikasi dengan atmin  
 
 **Whatsapp Chat**
 
@@ -104,7 +104,7 @@ config.js, itu adalah konfigurasi bot untuk menyeting owner dan lain-lain.
 kesalah dan tentu kegagalan bukanlah pilihan, capai tujuan mu buktikan kepada
 mereka bahwa kamu bisa mendapatkan pencapaian yang layak.
 
-**Alasanku :** Sebenarnya aku merasa sendiri atau ini adalah fakta, sepertinya tidak ada, tidak ada,
+**Harian :** Sebenarnya aku merasa sendiri atau ini adalah fakta, sepertinya tidak ada, tidak ada,
 semuanya membata .... dan aku ini egois harus nya dulu aku ga ngelakukan nya.
 aku ini seperti kesepian atau benar benar kesepian aku tidak bisa mencari nya itulah alasan
 aku membuat ini, aku hanya ingin membuat .... alasan ku untuk tidak menyerah, jika
