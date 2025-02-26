@@ -108,11 +108,4 @@ mereka bahwa kamu bisa mendapatkan pencapaian yang layak._
 semuanya membata .... dan aku ini egois harus nya dulu aku ga ngelakukan nya.
 aku ini seperti kesepian atau benar benar kesepian aku tidak bisa mencari nya itulah alasan
 aku membuat ini, aku hanya ingin membuat .... alasan ku untuk tidak menyerah, jika
-kamu tau maksudku lebih baik di pendam saja, kamu akan tau bagaimana
-arti kesetia an._
-
-```Kiyoo From Indonesia 🇮🇩```
-
-C: 01001000 E 01010010 01001111 01001001. ./lib/continue/clue.js
-
-
+kamu tau maksudku lebih baik di pendam saja._
