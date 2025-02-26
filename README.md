@@ -1,4 +1,4 @@
-### [  Script ini Support Panel & Termux  ]
+# Gumdramon  Md - Script bot javascript - Baileys
 
 Base Dari : @Siputzx 
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
