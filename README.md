@@ -10,9 +10,7 @@
 
 <div align='center'>
 
-![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/pixiel-kiyo/R9-Gumdramon)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/pixiel-kiyo/R9-Gumdramon)
-![GitHub License](https://img.shields.io/github/license/pixiel-kiyo/R9-Gumdramon)
 ![GitHub Repo stars](https://img.shields.io/github/stars/pixiel-kiyo/R9-Gumdramon)
 ![GitHub forks](https://img.shields.io/github/forks/pixiel-kiyo/R9-Gumdramon)
 
