@@ -11,7 +11,7 @@
 Base Dari : @Siputzx 
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
 
-
+<img src="https://files.catbox.moe/4jrfbx.jpg" alt="Gambar contoh" style="border-radius: 50%; width: 100px; height: 100px;">
 
 ## Info dari pusat
 Teruntuk subscriber dan creator bot whatsapp telah
