@@ -46,7 +46,8 @@ $ npm start
 ```
 
 ## Package yang dibutuh kan
-nodejs runtime, ffmpeg, libwebp, wget, yarn, git ( opsional )
+
+**Package Source**
 
 * [Node.js](https://nodejs.org/en/)
 
@@ -58,10 +59,22 @@ nodejs runtime, ffmpeg, libwebp, wget, yarn, git ( opsional )
 
 * [Yarn](https://classic.yarnpkg.com/lang/en/docs/install/#windows-stable)
 
+### Package Install
+
+**For termux user and linux - terminal**
+
+```
+$ apt upgrade
+$ apt update
+$ apt install nodejs ffmpeg libwebp
+$ apt install yarn git
+```
+
 **Warning :** jika gyp error biarkan saja, memang belum support ke android.
 
 **untuk panel :** upload file nya dan unarchive kalo sudah di upload, lalu start server.
- 
+
+```[  Berkomunikasi dengan atmin  ]```
  * Group :
  -> https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
  -> https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
