@@ -18,11 +18,15 @@ dengan Script yg saya buat, bebas recode ya asal teman-teman
 kasih credits daripada bot gaboleh di oprek enc pulak, mana nge
 buat nya bareng bareng lagi, Salam dari kiyo & Terimakasih.
 
-> Normal Setup
+# Instalasi
 
+Setup biasa
+
+```
 $ cd ./your-path
 $ npm install
 $ npm start
+```
 
 > Recomendation ( Jika error )
 
