@@ -72,7 +72,7 @@ $ apt install yarn git
 
 **Warning :** jika ```gyp error``` biarkan saja, memang belum support ke **android**.
 
-**Untuk panel :** ```upload file``` nya dan ```unarchive``` kalo sudah di **upload**, lalu ```start server```.
+**Untuk panel :** ```upload file``` nya dan ```unarchive``` kalo sudah di **upload**, lalu ```start```server.
 
 ## Berkomunikasi dengan atmin  
 
@@ -80,9 +80,9 @@ $ apt install yarn git
 
  * Group :
 
-https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
+  https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
    
-https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
+  https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
  
  * Channel : https://whatsapp.com/channel/0029VauYaRAJZg45fQAoeQ0M
    
