@@ -9,6 +9,7 @@ Base Dari : @Siputzx
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
 
 
+
 ## Info dari pusat
 Teruntuk subscriber dan creator bot whatsapp telah
 membuat base dan telah menyediakan fitur bahkan untuk penyebar
