@@ -70,18 +70,19 @@ $ apt install nodejs ffmpeg libwebp
 $ apt install yarn git
 ```
 
-**Warning :** jika gyp error biarkan saja, memang belum support ke android.
+**Warning :** jika ```gyp error``` biarkan saja, memang belum support ke **android**.
 
-**Untuk panel :** upload file nya dan unarchive kalo sudah di upload, lalu start server.
+**Untuk panel :** ```upload file``` nya dan ```unarchive``` kalo sudah di **upload**, lalu ```start server```.
 
 ## Berkomunikasi dengan atmin  
 
 **Whatsapp Chat**
 
  * Group :
- -> https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
+
+https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
    
- -> https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
+https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
  
  * Channel : https://whatsapp.com/channel/0029VauYaRAJZg45fQAoeQ0M
    
@@ -100,15 +101,17 @@ $ apt install yarn git
 
 ### Sebuah catatan dari atmin 
 
-**ambativasi :** janganlah menyerah di tengah proses jangan menyesal jika membuat
+**Ambativasi :** _janganlah menyerah di tengah proses jangan menyesal jika membuat
 kesalah dan tentu kegagalan bukanlah pilihan, capai tujuan mu buktikan kepada
-mereka bahwa kamu bisa mendapatkan pencapaian yang layak.
+mereka bahwa kamu bisa mendapatkan pencapaian yang layak._
 
-**Harian :** Sebenarnya aku merasa sendiri atau ini adalah fakta, sepertinya tidak ada, tidak ada,
+**Harian :** _Sebenarnya aku merasa sendiri atau ini adalah fakta, sepertinya tidak ada, tidak ada,
 semuanya membata .... dan aku ini egois harus nya dulu aku ga ngelakukan nya.
 aku ini seperti kesepian atau benar benar kesepian aku tidak bisa mencari nya itulah alasan
 aku membuat ini, aku hanya ingin membuat .... alasan ku untuk tidak menyerah, jika
 kamu tau maksudku lebih baik di pendam saja, kamu akan tau bagaimana
-arti kesetia an.
+arti kesetia an._
 
 C: 01001000 E 01010010 01001111 01001001. ./lib/continue/clue.js
+
+```Kiyoo From Indonesia 🇮🇩```
