@@ -1,3 +1,6 @@
+<img src ="https://files.catbox.moe/4jrfbx.jpg" alt ="gumdramon">
+
+
 <h1 align="center"> Gumdramon - MD <br></h1>
 
 <p align="center"> 
