@@ -74,7 +74,7 @@ $ apt install yarn git
 
 **untuk panel :** upload file nya dan unarchive kalo sudah di upload, lalu start server.
 
-# ```[  Berkomunikasi dengan atmin  ]```
+### ```[  Berkomunikasi dengan atmin  ]```
  * Group :
  -> https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
  -> https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
