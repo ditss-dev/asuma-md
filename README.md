@@ -79,7 +79,6 @@ $ apt install yarn git
 **Whatsapp Chat**
 
  * Group :
-
     https://chat.whatsapp.com/B7igTzQy0XJ43W9knJ1Itn
    
     https://chat.whatsapp.com/JMcZVXRpdAMBrg9RxqlzVF
@@ -112,6 +111,8 @@ aku membuat ini, aku hanya ingin membuat .... alasan ku untuk tidak menyerah, ji
 kamu tau maksudku lebih baik di pendam saja, kamu akan tau bagaimana
 arti kesetia an._
 
+```Kiyoo From Indonesia 🇮🇩```
+
 C: 01001000 E 01010010 01001111 01001001. ./lib/continue/clue.js
 
-```Kiyoo From Indonesia 🇮🇩```
+
