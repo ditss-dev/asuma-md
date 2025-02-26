@@ -1,4 +1,4 @@
-```[  Script ini Support Panel & Termux  ]```
+*```[  Script ini Support Panel & Termux  ]```*
 
 Base Dari : @Siputzx 
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
