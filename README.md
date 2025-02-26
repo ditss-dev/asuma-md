@@ -7,11 +7,10 @@
   Bot whatsapp dengan tema Digimon yang di kembangkan oleh kiyo ( ZIYO ) script ini memiliki banyak perubahan nama dan tentunya bot ini telah memakai Baileys(MD)
 </p>
 
-<p align="center">
-Base Dari : @Siputzx 
+<b align="center">
+Base Dari : @Siputzx
 Bot Remake Oleh : @kiyoo-rdg {CREATOR}
 
-<img src="https://files.catbox.moe/4jrfbx.jpg" alt="Gambar contoh" style="border-radius: 50%; width: 100px; height: 100px;">
 
 ## Info dari pusat
 Teruntuk subscriber dan creator bot whatsapp telah
