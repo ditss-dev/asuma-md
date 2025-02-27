@@ -1,12 +1,13 @@
 {
   "users": {
     "6283117190495@s.whatsapp.net": {
-      "hitcmd": 71,
+      "hitcmd": 74,
       "bits": 0,
       "afkTime": -1,
       "limit": 270,
       "afkReason": "",
-      "pc": 1739650702943
+      "pc": 1740476456599,
+      "jadibot": true
     },
     "6289531639634@s.whatsapp.net": {
       "pc": 1734513502064
@@ -20,8 +21,8 @@
       "afkReason": ""
     },
     "6283123448708@s.whatsapp.net": {
-      "pc": 1739887245464,
-      "hitcmd": 157,
+      "pc": 1740452909613,
+      "hitcmd": 240,
       "bits": 0,
       "afkTime": -1,
       "limit": 270,
@@ -356,6 +357,170 @@
       "bits": 0,
       "afkTime": -1,
       "limit": 271,
+      "afkReason": "",
+      "pc": 1740455970584
+    },
+    "6283110485866@s.whatsapp.net": {
+      "hitcmd": 1,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6285212363127@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6285182457976@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": "",
+      "pc": 1740455813999
+    },
+    "6285852539493@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6283152737204@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6282244951694@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6289524066579@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "628895307182@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6285817145056@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": "",
+      "pc": 1740456081002
+    },
+    "6282117574669@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6285943054105@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6285129502652@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6289699029080@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6283171205659@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6283149102172@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6287781223355@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6283825409576@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6288983278873@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6281393193400@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6282228259755@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6282135137852@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "6285839844898@s.whatsapp.net": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
+      "afkReason": ""
+    },
+    "13147196891238@lid": {
+      "hitcmd": 0,
+      "bits": 0,
+      "afkTime": -1,
+      "limit": 271,
       "afkReason": ""
     }
   },
@@ -476,6 +641,14 @@
     "6283113264512@s.whatsapp.net": {
       "isBanned": false,
       "mute": false
+    },
+    "120363406002883062@g.us": {
+      "isBanned": false,
+      "mute": false
+    },
+    "120363332100864665@g.us": {
+      "isBanned": false,
+      "mute": false
     }
   },
   "game": {
@@ -502,14 +675,16 @@
       "autoread": false,
       "public": true,
       "restart": false,
-      "setkota": "Jakarta"
+      "setkota": "Jakarta",
+      "cmdtotal": 64
     },
     "6283123448708@s.whatsapp.net": {
       "autoread": false,
       "public": true,
       "setkota": "Makkasar",
       "onlypc": false,
-      "onlygc": false
+      "onlygc": false,
+      "cmdtotal": 3
     }
   },
   "setting": {},

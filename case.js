@@ -38,6 +38,8 @@ const {
     pinterest,
     stickersearch,
     quote,
+    pomf,
+    catbox,
     lirik
 } = require("./lib/scraper")
 const process = require('process');
@@ -83,9 +85,7 @@ const {
     formatp,
     color,
     getGroupAdmins,
-    sleep
-} = require("./lib/myfunc");
-const {
+    sleep,
     formatDate,
     getTime,
     isUrl,
@@ -107,7 +107,7 @@ const {
     fetchBuffer,
     toms,
     buffergif
-} = require('./lib/function')
+} = require('./lib/simple')
 const {
     FajarNews,
     BBCNews,
@@ -161,30 +161,30 @@ const fg = require('api-dylux')
 const { ephoto, photoOxy } = require("./lib/importe/scraper/textmaker")
 module.exports = ptz = async (ptz, m, chatUpdate, store) => {
     try {
-        const body = (m && m?.mtype) ? (
-            m?.mtype === 'conversation' ? m?.message?.conversation :
-            m?.mtype === 'imageMessage' ? m?.message?.imageMessage?.caption :
-            m?.mtype === 'videoMessage' ? m?.message?.videoMessage?.caption :
-            m?.mtype === 'extendedTextMessage' ? m?.message?.extendedTextMessage?.text :
-            m?.mtype === 'buttonsResponseMessage' ? m?.message.buttonsResponseMessage.selectedButtonId :
-            m?.mtype === 'listResponseMessage' ? m?.message?.listResponseMessage?.singleSelectReply?.selectedRowId :
-            m?.mtype === 'interactiveResponseMessage' ? appenTextMessage(JSON.parse(m?.msg.nativeFlowResponseMessage.paramsJson).id, chatUpdate) :
-            m?.mtype === 'templateButtonReplyMessage' ? appenTextMessage(m?.msg.selectedId, chatUpdate) :
-            m?.mtype === 'messageContextInfo' ? (m?.message.buttonsResponseMessage?.selectedButtonId || m?.message.listResponseMessage?.singleSelectReply.selectedRowId || m?.text) :
+        const body = (m && m.mtype) ? (
+            m.mtype === 'conversation' ? m.message?.conversation :
+            m.mtype === 'imageMessage' ? m.message?.imageMessage?.caption :
+            m.mtype === 'videoMessage' ? m.message?.videoMessage?.caption :
+            m.mtype === 'extendedTextMessage' ? m.message?.extendedTextMessage?.text :
+            m.mtype === 'buttonsResponseMessage' ? m.message.buttonsResponseMessage.selectedButtonId :
+            m.mtype === 'listResponseMessage' ? m.message?.listResponseMessage?.singleSelectReply?.selectedRowId :
+            m.mtype === 'interactiveResponseMessage' ? appenTextMessage(JSON.parse(m.msg.nativeFlowResponseMessage.paramsJson).id, chatUpdate) :
+            m.mtype === 'templateButtonReplyMessage' ? appenTextMessage(m.msg.selectedId, chatUpdate) :
+            m.mtype === 'messageContextInfo' ? (m.message.buttonsResponseMessage?.selectedButtonId || m.message.listResponseMessage?.singleSelectReply.selectedRowId || m.text) :
             ''
         ) : '';
         async function appenTextMessage(text, chatUpdate) {
-            let messages = await generateWAMessage(m?.chat, {
+            let messages = await generateWAMessage(m.chat, {
                 text: text,
-                mentions: m?.mentionedJid
+                mentions: m.mentionedJid
             }, {
                 userJid: ptz.user.id,
-                quoted: m?.quoted && m?.quoted.fakeObj
+                quoted: m.quoted && m.quoted.fakeObj
             })
-            messages.key.fromMe = areJidsSameUser(m?.sender, ptz.user.id)
-            messages.key.id = m?.key.id
-            messages.pushName = m?.pushName
-            if (m?.isGroup) messages.participant = m?.sender
+            messages.key.fromMe = areJidsSameUser(m.sender, ptz.user.id)
+            messages.key.id = m.key.id
+            messages.pushName = m.pushName
+            if (m.isGroup) messages.participant = m.sender
             let msg = {
                 ...chatUpdate,
                 messages: [proto.WebMessageInfo.fromObject(messages)],
@@ -192,36 +192,36 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
             }
             ptz.ev.emit('messages.upsert', msg)
         }
-        const budy = (m && typeof m?.text === 'string') ? m?.text : '';
+        const budy = (m && typeof m.text === 'string') ? m.text : '';
         const prefix = /^[°zZ#@*+,.?''():√%!¢£¥€π¤ΠΦ_&<`™©®Δ^βα~¦|/\\©^]/.test(body) ? body.match(/^[°zZ#@*+,.?''():√%¢£¥€π¤ΠΦ_&<!`™©®Δ^βα~¦|/\\©^]/gi) : '.'
         const isCmd = body.startsWith(prefix)
         const command = isCmd ? body.slice(prefix.length).trim().split(' ').shift().toLowerCase() : ''
         const args = body.trim().split(/ +/).slice(1);
         const full_args = body.replace(command, '').slice(1).trim();
-        const pushname = m?.pushName || "No Name";
+        const pushname = m.pushName || "No Name";
         const botNumber = await ptz.decodeJid(ptz.user.id);
         const newowner = JSON.parse(fs.readFileSync('./lib/database/owner.json'))
-        const isCreator = (m && m?.sender && [botNumber, ...newowner, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m?.sender)) || false;
-        const itsMe = (m && m?.sender && m?.sender == botNumber) || false;
+        const isCreator = (m && m.sender && [botNumber, ...newowner, ...global.owner].map(v => v.replace(/[^0-9]/g, '') + '@s.whatsapp.net').includes(m.sender)) || false;
+        const itsMe = (m && m.sender && m.sender == botNumber) || false;
         const banned = JSON.parse(fs.readFileSync('./lib/database/banned.json'))
         const isBan = banned.includes(m.sender)
         const text = q = args.join(" ");
-        const fatkuns = m && (m?.quoted || m);
+        const fatkuns = m && (m.quoted || m);
         const quoted = (fatkuns?.mtype == 'buttonsMessage') ? fatkuns[Object.keys(fatkuns)[1]] :
             (fatkuns?.mtype == 'templateMessage') ? fatkuns.hydratedTemplate[Object.keys(fatkuns.hydratedTemplate)[1]] :
             (fatkuns?.mtype == 'product') ? fatkuns[Object.keys(fatkuns)[0]] :
-            m?.quoted || m;
+            m.quoted || m;
         const mime = ((quoted?.msg || quoted) || {}).mimetype || '';
         const qmsg = (quoted?.msg || quoted);
         const isMedia = /image|video|sticker|audio/.test(mime);
-        const groupMetadata = m?.isGroup ? await ptz.groupMetadata(m?.chat).catch(e => {}) : {};
-        const groupName = m?.isGroup ? groupMetadata.subject || '' : '';
-        const participants = m?.isGroup ? await groupMetadata.participants || [] : [];
-        const groupAdmins = m?.isGroup ? await getGroupAdmins(participants) || [] : [];
-        const isBotAdmins = m?.isGroup ? groupAdmins.includes(botNumber) : false;
-        const isAdmins = m?.isGroup ? groupAdmins.includes(m?.sender) : false;
-        const groupOwner = m?.isGroup ? groupMetadata.owner || '' : '';
-        const isGroupOwner = m?.isGroup ? (groupOwner ? groupOwner : groupAdmins).includes(m?.sender) : false;
+        const groupMetadata = m.isGroup ? await ptz.groupMetadata(m.chat).catch(e => {}) : {};
+        const groupName = m.isGroup ? groupMetadata.subject || '' : '';
+        const participants = m.isGroup ? await groupMetadata.participants || [] : [];
+        const groupAdmins = m.isGroup ? await getGroupAdmins(participants) || [] : [];
+        const isBotAdmins = m.isGroup ? groupAdmins.includes(botNumber) : false;
+        const isAdmins = m.isGroup ? groupAdmins.includes(m.sender) : false;
+        const groupOwner = m.isGroup ? groupMetadata.owner || '' : '';
+        const isGroupOwner = m.isGroup ? (groupOwner ? groupOwner : groupAdmins).includes(m.sender) : false;
         
         //================== [ TIME ] ==================//
         const hariini = moment.tz('Asia/Jakarta').format('dddd, DD MMMM YYYY')
@@ -255,27 +255,27 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
         //================== [ DATABASE ] ==================//
         try {
             let isNumber = x => typeof x === 'number' && !isNaN(x)
-            let user = global.db.data.users[m?.sender]
-            if (typeof user !== 'object') global.db.data.users[m?.sender] = {}
+            let user = global.db.data.users[m.sender]
+            if (typeof user !== 'object') global.db.data.users[m.sender] = {}
             if (user) {
                 if (!('hitcmd' in user)) user.hitcmd = 0
                 if (!('bits' in user)) user.bits = 0
                 if (!isNumber(user.afkTime)) user.afkTime = -1
                 if (!isNumber(user.limit)) user.limit = 270
                 if (!('afkReason' in user)) user.afkReason = ''
-            } else global.db.data.users[m?.sender] = {
+            } else global.db.data.users[m.sender] = {
                 hitcmd: 0,
                 bits: 0,
                 afkTime: -1,
                 limit: 271,
                 afkReason: '',
             }
-            let chats = global.db.data.chats[m?.chat]
-            if (typeof chats !== 'object') global.db.data.chats[m?.chat] = {}
+            let chats = global.db.data.chats[m.chat]
+            if (typeof chats !== 'object') global.db.data.chats[m.chat] = {}
             if (chats) {
                 if (!('isBanned' in chat)) chat.isBanned = false
                 if (!('mute' in chat)) chat.mute = false
-            } else global.db.data.chats[m?.chat] = {
+            } else global.db.data.chats[m.chat] = {
                 isBanned: false,
                 mute: false,
             }
@@ -287,12 +287,22 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
                 if (!('setkota' in setting)) setting.setkota = "Makassar"
                 if (!("onlypc" in settings)) settings.onlypc = false
                 if (!("onlygc" in settings)) settings.onlygc = false
+                if (!("autobio" in settings)) settings.autobio = false
+                if (!("autorecordtype" in settings)) settings.autorecordtype = false
+                if (!("autoRecording" in settings)) settings.autoRecording = false
+                if (!("autoTyping" in settings)) settings.autoTyping = false
+                if (!("cmdtotal" in settings)) settings.cmdtotal = 0               
             } else global.db.data.settings[botNumber] = {
                 autoread: false,
                 public: true,
                 setkota: "Makkasar",
+                cmdtotal: 0,
                 onlypc: false,
-                onlygc: false
+                onlygc: false,
+                autorecordtype: false,
+                autobio: false,
+                autoRecording: false,
+                autoTyping: false,
             }
         } catch (err) {}
         const userdb = global.db.data.users[m.sender]
@@ -354,25 +364,6 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
             upload
         } = await checkBandwidth();
         let mentionUser = [...new Set([...(m.mentionedJid || []), ...(m.quoted ? [m.quoted.sender] : [])])]
-        async function pomf(media) {
-            return new Promise(async (resolve, reject) => {
-                const formData = new FormData();
-                formData.append('files[]', media, {
-                    filename: new Date() * 1 + '.jpg'
-                });
-                await axios.post('https://pomf2.lain.la/upload.php', formData, {
-                        headers: {
-                            ...formData.getHeaders(),
-                        },
-                    })
-                    .then((response) => {
-                        resolve(response.data);
-                    })
-                    .catch((error) => {
-                        resolve(error?.response);
-                    });
-            });
-        }
         const timeday = `${hariini} - ${wib}`
         const prem = JSON.parse(fs.readFileSync("./lib/database/premium.json"))
         const isPremium = prem.includes(m.sender)
@@ -399,14 +390,13 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
             });
         }
         const reply = async (teks = "Example", id = m.chat) => {
-            ptz.sendMessage(id, {
+           await ptz.sendMessage(id, {
                 document: fs.readFileSync("./package.json"),
                 fileName: global.filename,
                 fileLength: 99999999999999,
                 mimetype: 'image/png',
                 jpegThumbnail: fs.readFileSync("./assets/Gallery/doc.jpg"),
                 caption: "\n" + teks,
-                ai: true,
             }, {
                 quoted: fsaluran,
                 ephemeralExpiration: 86400
@@ -420,7 +410,7 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
 │ㅤ✦ㅤ ᴜᴘʟᴏᴀᴅ: ${upload}
 │ㅤ✧ㅤ ᴅᴏᴡɴʟᴏᴀᴅ: ${download}
 │ㅤ✧ㅤ ɴᴏᴅᴇᴊꜱ ᴠᴇʀꜱɪᴏɴ: ${process.version}
-│ㅤ✧ㅤ ᴠᴇʀꜱɪᴏɴ: 1.2
+│ㅤ✧ㅤ ᴠᴇʀꜱɪᴏɴ: ${global.version}
 │ㅤ✦ㅤ ᴡʜɪꜱᴋᴇʏꜱᴏᴄᴋᴇᴛꜱ: custom: 6.6.0
 │
 ╙─━─• *\`⟨  ＢＯＴ － ＣＬＩＥＮＴ  ⟩\`*`
@@ -481,16 +471,6 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
             return `${resio.quotes}`
         }
         const katakata = await kata2()
-        if (settingdb.restart) {
-            try {
-                ptz.sendMessage(chatdb.lastchat, {
-                    text: "*Succes Restart bot-*"
-                })
-                settingdb.restart = false
-            } catch (e) {
-                console.log(e)
-            }
-        }
         function pickRandomArray(list) {
         return list[Math.floor(Math.random() * list.length)]
         }
@@ -514,7 +494,7 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
         let jd = rn[Math.floor(Math.random() * rn.length)];
         let mean;
         let didyoumenn;
-        let premium = JSON.parse(fs.readFileSync('./lib/database/premium.json'));
+        let premium = JSON.parse(fs.readFileSync('./lib/database/premium.json'));       
         async function spawndidyou(our) {
             try {              
                 const code = fs.readFileSync("./case.js", "utf8")
@@ -616,6 +596,23 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
                 await plugin(m, helper)
             }
         }
+let popumenu = {};
+let menuhit = "./lib/database/menuhit.json";
+function hitMenu(menuName) {
+    popumenu.menu_stats = popumenu.menu_stats || {};
+    popumenu.menu_stats[menuName] = (popumenu.menu_stats[menuName] || 0) + 1;
+    fs.writeFileSync(menuhit, JSON.stringify(popumenu, null, 2));
+}
+async function gearhit() {
+    let data = JSON.parse(fs.readFileSync(menuhit, "utf8"));
+    let menuStats = data.menu_stats || {};
+
+    let result = Object.entries(menuStats).reduce((max, menu) => {
+        return menu[1] > max[1] ? menu : max;
+    }, ["", 0]); 
+    return result;
+}
+const topmenu = await gearhit()
         if (!pluginsDisable) return
         if (isCmd) {
             if (m.text.startsWith(prefix)) {
@@ -623,11 +620,13 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
                     const viuc = await getcomandces(command);
                     if (body.length === 1) return;
                     if (!command || viuc === "none") return spawndidyou(command)
-                    if (isBan) return reply("*`[ Gumdramon ] tidak bisa mengakses bot`*")
+                    if (isBan) return reply(mess.ban)
                     
                     const rand = await pickRandomArray(["🍫", "🍬"])
-                    reactmess(rand)
+                 //   reactmess(rand)
                     userdb.hitcmd += 1;
+                    settingdb.cmdtotal += 1
+                    hitMenu(command)
                 }
             }
         } else {}
@@ -638,7 +637,7 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
         } else {
             console.log(`\n< ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬ >\n`)
             console.log(chalk.magenta(`Private Chat:`))
-            console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.white(chalk.bgMagenta(new Date)), chalk.black(chalk.bgWhite(budy || m.mtype)) + '\n' + chalk.white('=> From'), chalk.magenta(pushname), chalk.magenta(m.sender))
+            console.log(chalk.black(chalk.bgWhite('[ MESSAGE ]')), chalk.white(chalk.bgMagenta(new Date)), chalk.black(chalk.bgWhite(budy || m.mtype)) + '\n' + chalk.white('=> From'), chalk.magenta(pushname), chalk.magenta(m.sender))            
         }
         
         async function totalfiturr() {
@@ -652,11 +651,10 @@ module.exports = ptz = async (ptz, m, chatUpdate, store) => {
                 var numUpper = (mytext.match(/case "/g) || []).length
                 return numUpper
             }
-                const resulto = fitur1 + fitur2
+                const resulto = fitur1() + fitur2()
                 
-                return {
-                casee: resulto
-                }
+                return resulto
+                
         }
 
         function msToTime(duration) {
@@ -738,7 +736,7 @@ async function addAllMembersToPremium(groupId) {
             return `${Math.ceil(Math.random() * ext)}`
         }
         if (budy.match(`njing|onyet|etan|oblog|atim|ngentot|mek|ntol|asu|coli|sange|bot goblog|ngewe|njing|nying|nyet|tobrut|pixiv|furry|sex|xnxx|porn|porno|bokep|crot|ngocok|bolong|sabun|goyang|pantat|mani|pokemon|raimbow|lgbt|memek|pmo|duar`)) {
-            return kirimstik("https://cdn.meitang.xyz/file/BQACAgUAAxkDAAJt7mbladkvWSboinIrt7-I4NVWjJYnAAJ-FQACCY0xV4hCNWc9IaVeNgQ")
+            return kirimstik("https://files.catbox.moe/lcuxy8.jpeg")
         }
         if ((budy.match) && ["Assalamualaikum", "assalamualaikum", "Assalamu'alaikum", "alaikum"].includes(budy) && !isCmd) {
             reply("*Waalaikumsalam*")
@@ -761,7 +759,7 @@ async function addAllMembersToPremium(groupId) {
         if ((budy.match) && ["Start", "mulai", "bot"].includes(budy) && !isCmd) {
             reply(`Silahlan Ketik .menu`)
         }
-        if (!ptz.public) {
+        if (!settingdb.public) {
             if (!m.key.fromMe && !isCreator) return
         }
         for (let jid of mentionUser) {
@@ -805,8 +803,13 @@ userdb.afkReason = ''
         let tebaktekateki = db.data.game.tebaktekateki = []
         let caklontong = db.data.game.lontong = []
         let caklontong_desk = db.data.game.lontong_desk = []
+        let absenData = {}
+        let vote = {}
         this.game = this.game ? this.game : {}
         let room = Object.values(this.game).find(room => room.id && room.game && room.state && room.id.startsWith('tictactoe') && [room.game.playerX, room.game.playerO].includes(m.sender) && room.state == 'PLAYING')
+        
+        ptz.menfes = ptz.menfes ? ptz.menfes : {}
+        
         if (room) {
             let ok
             let isWin = !1
@@ -991,7 +994,7 @@ Silahkan pilih suit di bot.`, m, {
                     userdb.petakbom = false
                     ptz.sendMessage(m.chat, {
                         react: {
-                            text: '🟢',
+                            text: '☑',
                             key: m.key
                         }
                     });
@@ -1067,6 +1070,32 @@ Silahkan pilih suit di bot.`, m, {
             if (isCmd) {
                 return;
             }
+        }
+        
+                if (settingdb.autoTyping) {
+
+        ptz.sendPresenceUpdate('composing', m.chat)
+
+
+        }
+
+        if (settingdb.autoRecording) {
+
+        ptz.sendPresenceUpdate('recording', m.chat)
+
+        }
+
+        if (settingdb.autorecordtype) {
+        let rcd2 = ['recording','composing']
+
+        let rcd1 = rcd2[Math.floor(Math.random() * rcd2.length)]
+
+        ptz.sendPresenceUpdate(rcd1, m.chat)
+
+        }
+        
+        if (settingdb.autobio) {
+            ptz.updateProfileStatus(`🍬 Hello I'm Gumdramon, this my runtime : ${runtime(process.uptime())} `).catch(_ => _)
         }
         
         const isSewagc = _sewa.checkSewaGroup(m.chat, sewa)
@@ -1184,6 +1213,193 @@ ${global.allmenu}`
             }
             break
            //=============[ Males nempatin cmd ]=================//
+           case "doctes": 
+           console.log(m.chat)
+    ptz.sendMessage("120363372991117133@g.us", {
+    document: fs.readFileSync("./package.json"),
+    fileName: "document.pdf",
+    mimetype: "application/pdf",
+    caption: "nyoba kirim dokumen ke grup"
+});
+break
+case "polltes":
+ptz.sendPoll(m.chat, m.sender, ["s","love"])
+break
+case "love":
+m.reply("our love ♡ "+waiter+" its Fucking "+m.chat+" "+m.sender)
+break
+case 'confess': case 'confes': case 'menfes': case 'menfess':{
+roof = Object.values(ptz.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender))
+if (roof) return reply("Kamu masih berada dalam sesi menfess")
+if (!text) return reply(`Kirim Perintah ${prefix + command} nama|nomor|pesan\n\nContoh :\n${prefix + command} ${pushname}|628xxx|Menfes nih\n`)
+if (!text.includes('|')) return reply(`Kirim Perintah ${prefix + command} nama|nomor|pesan\n\nContoh :\n${prefix + command} ${pushname}|6292818802718|Menfes nih\n`)
+let [namaNya, nomorNya, pesanNya] = text.split`|`
+if (nomorNya.startsWith('0')) return reply(`Kirim Perintah ${prefix + command} nama|nomor|pesan\n\nContoh :\n${prefix + command} ${pushname}|628xxx|Menfes nih\n`)
+if(isNaN(nomorNya)) return reply(`Kirim Perintah ${prefix + command} nama|nomor|pesan\n\nContoh :\n${prefix + command} ${pushname}|628xxx|Menfes nih\n`)
+var yoi = `Hi ada menfess nih buat kamu\n\nDari : ${namaNya}\nPesan : ${pesanNya}\n\nSilahkan ketik ${prefix}balasmenfess -- Untuk menerima menfess/confess\nSilahkan ketik ${prefix}tolakmenfess -- Untuk menolak menfess/confess\n\n_Pesan ini di tulis oleh seseorang pengguna bot, bot hanya menyampaikan saja_`
+let tod = await getBuffer('https://telegra.ph/file/c8fdfc8426f5f60b48cca.jpg') 
+let id = m.sender
+ptz.menfes[id] = {
+id,
+a: m.sender,
+b: nomorNya + "@s.whatsapp.net",
+state: 'WAITING'
+}
+ await ptz.sendMessage(nomorNya + '@s.whatsapp.net', {image: tod, caption:yoi }, {})
+reply('Pesan berhasil dikirim ke nomor tujuan.')
+}
+break
+case 'balasmenfess': case 'balasmenfes': case 'accmenfess':{
+let roof = Object.values(ptz.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender));
+if (!roof) return reply("Belum ada sesi menfess");
+let room = Object.values(ptz.menfes).find(room => [room.a, room.b].includes(m.sender) && room.state === 'WAITING');
+if (!room) return reply("Tidak ada sesi menfess yang sedang menunggu");
+let other = [room.a, room.b].find(user => user !== m.sender);
+room.b = m.sender;
+room.state = 'CHATTING';
+ptz.menfes[room.id] = {...room};
+await ptz.sendMessage(other, { 
+  text: `_@${m.sender.split("@")[0]} telah menerima menfess kamu, sekarang kamu bisa chat lewat bot ini_\n\n*NOTE :*\nJika ingin berhenti dari menfess, silahkan ketik .stopmenfess`, 
+  mentions: [m.sender]
+});
+ptz.sendMessage(m.chat, { 
+  text: `_Menfess telah diterima, sekarang kamu bisa chatan lewat bot ini_\n\n*NOTE :*\nJika ingin berhenti dari menfess, silahkan ketik .stopmenfess`
+});
+}
+break
+ case 'tolakmenfess': case 'tolakmenfes': case 'rejecmenfess':{
+roof = Object.values(ptz.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender))
+if (!roof) return reply("Belum ada sesi menfess")
+let room = Object.values(ptz.menfes).find(room => [room.a, room.b].includes(m.sender) && room.state === 'WAITING')
+let other = [room.a, room.b].find(user => user !== m.sender)
+find = Object.values(ptz.menfes).find(menps => menpes.state == 'WAITING')
+ptz.sendMessage(other, {text: `*[ @${m.sender.split("@")[0]} ] Menolak menfess kamu*`, mentions: [m.sender]})
+reply("Menfess berhasil di tolak")
+delete ptz.menfes[roof.id]
+}
+break
+ case 'stopconfess': case 'stopmenfess': {
+find = Object.values(ptz.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender))
+if (!find) return reply("Belum ada sesi menfess")
+const to = find.a == m.sender ? find.b : find.a
+ptz.sendMessage(to, {text: `_Partner telah menghentikan menfess ini_`, mentions:[m.sender]})
+await reply(mess.done)
+delete ptz.menfes[find.id]
+}
+ break
+
+case 'chatfes': {
+
+}
+break           
+case 'mulaiabsen': {
+if (!isGroup) return reply(mess.group)
+    if (absenData[m.chat]) return reply('Absen sudah dimulai di obrolan ini!');
+  
+    absenData[m.chat] = {
+        admin: userId, 
+        participants: [], 
+    };
+
+    reply('Absen telah dimulai! Gunakan perintah *.absen* untuk bergabung dalam absen ini.');
+}
+break
+
+case 'absen': {
+if (!isGroup) return reply(mess.group)
+    if (!absenData[m.chat]) return reply('Tidak ada proses absen yang sedang berlangsung di obrolan ini!');
+    var vsbhsbbeheheh = ptz.getName(m.sender)
+    absenData[m.chat].participants.push(vsbhsbbeheheh);
+    reply('Anda telah berhasil bergabung dalam proses absen!');
+}
+break
+
+case 'cekabsen': {
+if (!isGroup) return reply(mess.group)
+    if (!absenData[m.chat]) return reply('Tidak ada proses absen yang sedang berlangsung di obrolan ini!');        
+    const participants = absenData[m.chat].participants;    
+    reply(`Daftar peserta absen:\n${participants.join(', ')}`);
+}
+break
+
+case 'hapusabsen': {
+if (!isGroup) return reply(mess.group)
+    if (absenData[m.chat] && absenData[m.chat].admin === m.sender) { 
+        delete absenData[m.chat];        
+        reply('Proses absen telah dihapus!');
+    } else {
+        reply('Anda tidak memiliki izin untuk menghapus proses absen!');
+    }
+}
+break    
+        
+           case 'autotyping':
+              if (!isCreator) return reply(mess.owner)
+              if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
+                if (q === 'on') {
+                    settingdb.autoTyping = true
+                    reply(`Successfully changed auto-typing to ${q}`)
+                } else if (q === 'off') {
+                    settingdb.autoTyping = false
+                    reply(`Successfully changed auto-typing to ${q}`)
+                }
+                break
+                case 'autorecording':
+                if (!isCreator) return reply(mess.owner)
+                if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
+                if (q === 'on') {
+                    settingdb.autoRecording = true
+                    reply(`Successfully changed auto-recording to ${q}`)
+                } else if (q === 'off') {
+                    settingdb.autoRecording = false
+                    reply(`Successfully changed auto-recording to ${q}`)
+                }
+                break
+                case 'autorecordtype':
+                if (!isCreator) return reply(mess.owner)
+                if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
+                if (q === 'on') {
+                    settingdb.autorecordtype = true
+                    reply(`Successfully changed auto recording and typing to ${q}`)
+                } else if (q === 'off') {
+                    settingdb.autorecordtype = false
+                    reply(`Successfully changed auto recording and typing to ${q}`)
+                }
+                break
+            case 'autobio':
+                if (!isCreator) return reply(mess.owner)
+                if (args.length < 1) return reply(`Example ${prefix + command} on/off`)
+                if (q == 'on') {
+                    settingdb.autobio = true
+                    reply(`Successfully Changed AutoBio To ${q}`)
+                } else if (q == 'off') {
+                    settingdb.autobio = false
+                    reply(`Successfully Changed AutoBio To ${q}`)
+                }
+             break                
+            case 'toaud': case 'tomp3': case 'toaudio': {
+            if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`Send/Reply Video/Audio You Want to Use as Audio With Caption ${prefix + command}`)
+            if (!quoted) return reply(`Send/Reply Video/Audio You Want to Use as Audio With Caption ${prefix + command}`)
+            reply(mess.wait)
+            let media = await quoted.download()
+            let { toAudio } = require('./lib/converter')
+            let audio = await toAudio(media, 'mp4')
+            ptz.sendMessage(m.chat, {audio: audio, mimetype: 'audio/mpeg'}, { quoted : m })
+            }
+            break
+            case "1221":
+            ptz.sendMessage(m.chat, {audio: fs.readFileSync("./assets/1"), mimetype: 'audio/mpeg'}, { quoted : m })
+            break
+            case 'tovn': case 'toptt': {
+            if (!/video/.test(mime) && !/audio/.test(mime)) return reply(`Reply Video/Audio That You Want To Be VN With Caption ${prefix + command}`)
+            if (!quoted) return reply(`Reply Video/Audio That You Want To Be VN With Caption ${prefix + command}`)
+            reply(mess.wait)
+            let media = await quoted.download()
+            let { toPTT } = require('./lib/converter')
+            let audio = await toPTT(media, 'mp4')
+            ptz.sendMessage(m.chat, {audio: audio, mimetype:'audio/mpeg', ptt:true }, {quoted:m})
+            }
+            break
             case 'editinfo':
                 if (!m.isGroup) return reply(mess.group)
                 if (!isAdmins && !isGroupOwner && !isCreator) return reply(mess.admin)
@@ -1989,7 +2205,7 @@ Silahkan @${m.mentionedJid[0].split`@`[0]} untuk ketik terima/tolak`
                 let {
                     genMath,
                     modes
-                } = require('./lib/math.js')
+                } = require('./lib/importe/game/math.js')
                 if (!text) return reply(`Mode: ${Object.keys(modes).join(' | ')}\nContoh penggunaan: ${prefix}math medium`)
                 let resultmathjs = await genMath(text.toLowerCase())
                 ptz.sendText(m.chat, `*Berapa hasil dari: ${resultmathjs.soal.toLowerCase()}*?\n\nWaktu: 20 detik`, m).then(() => {
@@ -2732,10 +2948,10 @@ break
                         let pos = ptz.tembak.musuh.join(" ") + "\n\n\n" + ptz.tembak.tembak.join(" ");
 
                         if (ptz.tembak.musuh.indexOf("🥷") === ptz.tembak.tembak.indexOf("🤠")) {
-                            return ptz.sendPoll(m, pos, ['tembak', 'Tembak']);
+                            return ptz.sendPoll(m.chat, pos, ['tembak', 'Tembak']);
                         }
 
-                        return ptz.sendPoll(m, pos, ['←', '→']);
+                        return ptz.sendPoll(m.chat, pos, ['←', '→']);
                     } else if (/→/i.test(command)) {
                         let kanan = [
                             ["🤠", "-", "-", "-", "-"],
@@ -2760,10 +2976,10 @@ break
                         let pos = ptz.tembak.musuh.join(" ") + "\n\n\n" + ptz.tembak.tembak.join(" ");
 
                         if (ptz.tembak.musuh.indexOf("🥷") === ptz.tembak.tembak.indexOf("🤠")) {
-                            return ptz.sendPoll(m, pos, ['tembak', 'Tembak']);
+                            return ptz.sendPoll(m.chat, pos, ['tembak', 'Tembak']);
                         }
 
-                        return ptz.sendPoll(m, pos, ['←', '→']);
+                        return ptz.sendPoll(m.chat, pos, ['←', '→']);
                     } else if (/tembak/i.test(command)) {
                         if (ptz.tembak.tembak.indexOf("🤠") == ptz.tembak.musuh.indexOf("🥷")) {
                             ptz.tembak = {};
@@ -2795,10 +3011,10 @@ break
                         let pos = ptz.tembak.musuh.join(" ") + "\n\n\n" + ptz.tembak.tembak.join(" ");
 
                         if (ptz.tembak.musuh.indexOf("🥷") === ptz.tembak.tembak.indexOf("🤠")) {
-                            return ptz.sendPoll(m, pos, ['tembak', '←', '→'])
+                            return ptz.sendPoll(m.chat, pos, ['tembak', '←', '→'])
                         }
 
-                        return ptz.sendPoll(m, pos, ['←', '→']);
+                        return ptz.sendPoll(m.chat, pos, ['←', '→']);
                     }
                 } catch (e) {
                     throw false;
@@ -3615,14 +3831,14 @@ break
             case 'totalfitur':
             case 'totalcmd':
             case 'totalcommand':
-                reply(`Case : ${totalfitur.casee}\nPlugin : ${totalfitur.plugiin}\n\nTotal : ${totalfitur.casee + totalfitur.plugiin}`)
+                reply(`Case : ${totalfitur}`)
                 break
             case "ilovekyoko":
                 if (!text) return reply("xixixixii")
                 
                 const buggga = () => {
                     reactmess("💜")
-                    ptz.sendPoll(m, "*`[ MEYAKINKAN PILIHAN FITUR ]`*", [`menu`, `${text}`])
+                    ptz.sendPoll(m.chat, "*`[ MEYAKINKAN PILIHAN FITUR ]`*", [`menu`, `${text}`])
                 }
                 if (m.quoted) return buggga()
                 try {
@@ -3754,24 +3970,26 @@ break
                 }
                 break
             case "jadibot":
-                ptz.sendPoll(m, "*`[ Pilih Methode ]`*", [`jadibot-scan`, `jadibot-pairing ${m.sender.replace("@s.whatsapp.net", "")}`])
+                ptz.sendPoll(m.chat, "*`[ Pilih Methode ]`*", [`jadibot-scan`, `jadibot-pairing ${m.sender.replace("@s.whatsapp.net", "")}`])
                 break
             case "jadibot-scan":
                 if (!isPremium) return reply(mess.premium)
                 userdb.jadibot = true
+                const isBoter = m.sender === botNumber ? (m.isGroup ? reply(mess.private) : m.chat) : null;
+                
+                if (isBoter !== null) {}
                 await jadibot(ptz, m.sender.replace("@s.whatsapp.net", ""), m, m.sender, "scan")
                 break
+            case "jadibot-test":
+            console.log(waiter)
+            break
             case "jadibot-pairing":
-                if (!text) return reply("mana nomor nya")
+                if (!text) {
                 await jadibot(ptz, m.sender.replace("@s.whatsapp.net", ""), m, m.sender, "pairing")
-                await sleep(4800)
-                let jadibo = `*\`</ Masukkan code dibawah ini />\`*\n\nNote: code dapat expired kapan saja!\n*Code: \`[ ${global.codepairing} ]\`*\n\nJika Code Error *undefined* ketik .repses-jadibot : Untuk memperbaiki session nomor anda`
-                userdb.jadibot = true
-                ptz.sendMessage(m.sender, {
-                    text: jadibo
-                }, {
-                    quoted: fsaluran
-                })
+                } else {
+                const cleanerk = text.replace(/[-+ ]/g, '')
+                await jadibot(ptz, cleanerk, m, cleanerk+"@s.whatsapp.net", "pairing")
+                }
                 break
             case "expire-jadibot":
             if (!isJadibot) return reply(mess.jadibot)
@@ -3951,7 +4169,7 @@ break
             case "ytplay":
             case "play": 
 
-                if (!text) throw 'Enter Title / Link From YouTube!';
+                if (!text) return reply('Enter Title / Link From YouTube!')
 
                 const look = await search(text);
                 const convert = look.videos[0];
@@ -4098,7 +4316,6 @@ break
                 break
             case 'unblock':
                 if (!isCreator) return reply(mess.owner)
-                if (isJadibot) return reply("*ONLY FOR REAL OWNER*")
                 let blockww = m.mentionedJid[0] ? m.mentionedJid[0] : m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
                 await ptz.updateBlockStatus(blockww, 'unblock').then((res) => reply(json(res))).catch((err) => reply(json(err)))
                 break
@@ -4282,15 +4499,15 @@ break
                 break
             case "public":
                 if (!isCreator) return reply(mess.owner)
-                if (ptz.public) return
-                ptz.public = true
+                if (settingdb.public) return
+                settingdb.public = true
                 reply(mess.done)
                 break
 
             case "self":
                 if (!isCreator) return reply(mess.owner)
-                if (!ptz.public) return
-                ptz.public = false
+                if (!settingdb.public) return
+                settingdb.public = false
                 reply(mess.done)
                 break
             case 'delete':
@@ -4404,8 +4621,6 @@ break
                 if (isJadibot) return reply("*ONLY FOR REAL OWNER*")
                 const restart = async () => {
                     reply(mess.wait)
-                    settingdb.restart = true
-                    chatdb.lastchat = m.chat
                 }
                 await restart()
                 setTimeout(() => process.exit(), 2000)
@@ -5257,9 +5472,20 @@ ${readmore}
                     reply(mess.done)
                 }
                 break
+                case "dn": 
+                ptz.sendMessage(m.chat, {
+                    text: "@" + m.chat,
+                    contextInfo: {
+                        groupMentions: [{
+                            groupJid: m.chat,
+                            groupSubject: text
+                        }]
+                    }
+                })
+                break
             case 'everyone':
             case "tagall":
-                if (!isAdmins) return
+                
                 ptz.sendMessage(m.chat, {
                     text: "@" + m.chat,
                     contextInfo: {
@@ -5342,34 +5568,34 @@ ${readmore}
             break
             //=================================================//
             case "add": {
-                if (m?.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
-                if (!text && !m?.quoted) reply('masukkan nomor yang ingin di tambahkan')
-                let users = m?.quoted ? m?.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await ptz.groupParticipantsUpdate(m?.chat, [users], 'add').catch(console.log)
+                if (m.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
+                if (!text && !m.quoted) reply('masukkan nomor yang ingin di tambahkan')
+                let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+                await ptz.groupParticipantsUpdate(m.chat, [users], 'add').catch(console.log)
             }
             break
             //=================================================//
             case "kick": {
-                if (m?.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
-                if (!text && !m?.quoted) reply('masukkan nomor yang ingin di kick')
-                let users = m?.quoted ? m?.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await ptz.groupParticipantsUpdate(m?.chat, [users], 'remove').catch(console.log)
+                if (m.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
+                if (!text && !m.quoted) reply('masukkan nomor yang ingin di kick')
+                let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+                await ptz.groupParticipantsUpdate(m.chat, [users], 'remove').catch(console.log)
             }
             break
             //=================================================//
             case "promote": {
-                if (m?.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
-                if (!text && !m?.quoted) reply('masukkan nomor yang ingin di promote')
-                let users = m?.quoted ? m?.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await ptz.groupParticipantsUpdate(m?.chat, [users], 'promote').catch(console.log)
+                if (m.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
+                if (!text && !m.quoted) reply('masukkan nomor yang ingin di promote')
+                let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+                await ptz.groupParticipantsUpdate(m.chat, [users], 'promote').catch(console.log)
             }
             break
             //=================================================//
             case "demote": {
-                if (m?.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
-                if (!text && !m?.quoted) reply('masukkan nomor yang ingin di demote')
-                let users = m?.quoted ? m?.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
-                await ptz.groupParticipantsUpdate(m?.chat, [users], 'demote').catch(console.log)
+                if (m.isGroup && !isAdmins && !isGroupOwner && isBotAdmins) return
+                if (!text && !m.quoted) reply('masukkan nomor yang ingin di demote')
+                let users = m.quoted ? m.quoted.sender : text.replace(/[^0-9]/g, '') + '@s.whatsapp.net'
+                await ptz.groupParticipantsUpdate(m.chat, [users], 'demote').catch(console.log)
             }
             break
             //=================================================//
@@ -5419,8 +5645,8 @@ ${readmore}
                 let lang, text
                 if (args.length >= 2) {
                     lang = args[0] ? args[0] : 'id', text = args.slice(1).join(' ')
-                } else if (m?.quoted && m?.quoted.text) {
-                    lang = args[0] ? args[0] : 'id', text = m?.quoted.text
+                } else if (m.quoted && m.quoted.text) {
+                    lang = args[0] ? args[0] : 'id', text = m.quoted.text
                 } else throw `Ex: ${usedPrefix + command} id hello i am robot`
                 const translate = require('@vitalets/google-translate-api')
                 let res = await translate(text, {
@@ -5428,7 +5654,7 @@ ${readmore}
                     autoCorrect: true
                 }).catch(_ => null)
                 if (!res) return reply(`Error : Bahasa"${lang}" Tidak Support`)
-                reply(`*Terdeteksi Bahasa:* ${res.from?.language.iso}\n*Ke Bahasa:* ${lang}\n\n*Terjemahan:* ${res.text}`.trim())
+                reply(`*Terdeteksi Bahasa:* ${res.from.language.iso}\n*Ke Bahasa:* ${lang}\n\n*Terjemahan:* ${res.text}`.trim())
             }
             break
             //=================================================//
@@ -5526,7 +5752,7 @@ ${readmore}
                 var [from, to] = text.split`|`
                 if (!(from && to)) return reply(`Ex: ${prefix + command} jakarta|bandung`)
                 var data = await jarak(from, to)
-                if (data.img) return ptz.sendMessage(m?.chat, {
+                if (data.img) return ptz.sendMessage(m.chat, {
                     image: data.img,
                     caption: data.desc
                 }, {
@@ -5537,14 +5763,14 @@ ${readmore}
             break
             //=================================================//
             case 'cls': {
-                if (!m?.quoted) return reply('Reply with a sticker!')
+                if (!m.quoted) return reply('Reply with a sticker!')
                 let stiker = false
                 try {
                     let [packname, ...author] = text.split('|')
                     author = (author || []).join('|')
-                    let mime = m?.quoted.mimetype || ''
+                    let mime = m.quoted.mimetype || ''
                     if (!/webp/.test(mime)) throw 'Reply with a sticker!'
-                    let img = m?.quoted.download()
+                    let img = m.quoted.download()
                     if (!img) throw 'Failed to download sticker!'
                     stiker = await addExif(img, packname || global.packname, author || global.author)
                 } catch (e) {
@@ -5552,7 +5778,7 @@ ${readmore}
                     if (Buffer.isBuffer(e)) stiker = e
                     else throw 'An error occurred: ' + e
                 } finally {
-                    if (stiker) ptz.sendFile(m?.chat, stiker, 'wms.webp', '', m, false, {
+                    if (stiker) ptz.sendFile(m.chat, stiker, 'wms.webp', '', m, false, {
                         asSticker: true
                     })
                     else throw 'Conversion failed'
@@ -5573,7 +5799,7 @@ ${readmore}
                     }
                 })).data
                 const b = Buffer.from(a.audioUrl)
-                ptz.sendMessage(m?.chat, {
+                ptz.sendMessage(m.chat, {
                     audio: Buffer.from(a.audioUrl.split("base64,")[1], "base64"),
                     mimetype: "audio/mpeg"
                 })
@@ -5585,7 +5811,7 @@ ${readmore}
                 if (!/image/.test(mime)) return reply("hanya support gambar")
                 let media = await quoted.download()
                 const This = await remini(media, "enhance");
-                ptz.sendFile(m?.chat, This, "", mess.done, m);
+                ptz.sendFile(m.chat, This, "", mess.done, m);
             }
             break
             //=================================================//
@@ -5622,7 +5848,7 @@ ${readmore}
                     delete res
                     throw `Content-Length: ${res.headers.get('content-length')}`
                 }
-                if (!/text|json/.test(res.headers.get('content-type'))) return ptz.sendFile(m?.chat, url, 'file', `*Link:* ${linknyaurl}\n\n2024 © PutuOfc`, m)
+                if (!/text|json/.test(res.headers.get('content-type'))) return ptz.sendFile(m.chat, url, 'file', `*Link:* ${linknyaurl}\n\n2024 © Kiyoo`, m)
                 let txt = await res.buffer()
                 try {
                     txt = util.format(JSON.parse(txt + ''))
@@ -5636,9 +5862,9 @@ ${readmore}
             //=================================================//
             case 'readvo':
             case 'readviewonce': {
-                if (!m?.quoted) return reply('reply gambar/video yang ingin Anda lihat')
-                if (m?.quoted.mtype !== 'viewOnceMessageV2') return reply('Ini bukan pesan view-once.')
-                let msg = m?.quoted.message
+                if (!m.quoted) return reply('reply gambar/video yang ingin Anda lihat')
+                if (m.quoted.mtype !== 'viewOnceMessageV2') return reply('Ini bukan pesan view-once.')
+                let msg = m.quoted.message
                 let type = Object.keys(msg)[0]
                 const {
                     downloadContentFromMessage
@@ -5649,9 +5875,9 @@ ${readmore}
                     buffer = Buffer.concat([buffer, chunk])
                 }
                 if (/video/.test(type)) {
-                    return ptz.sendFile(m?.chat, buffer, 'media.mp4', msg[type].caption || '', m)
+                    return ptz.sendFile(m.chat, buffer, 'media.mp4', msg[type].caption || '', m)
                 } else if (/image/.test(type)) {
-                    return ptz.sendFile(m?.chat, buffer, 'media.jpg', msg[type].caption || '', m)
+                    return ptz.sendFile(m.chat, buffer, 'media.jpg', msg[type].caption || '', m)
                 }
             }
             break
@@ -5660,14 +5886,14 @@ ${readmore}
                 let text
                 if (args.length >= 1) {
                     text = args.slice(0).join(" ")
-                } else if (m?.quoted && m?.quoted.text) {
-                    text = m?.quoted.text
+                } else if (m.quoted && m.quoted.text) {
+                    text = m.quoted.text
                 } else reply("Input teks atau reply teks yang ingin di jadikan quote!")
                 if (!text) return reply('masukan text')
                 if (text.length > 30) return reply('Maksimal 30 Teks!')
-                let ppnyauser = await await ptz.profilePictureUrl(m?.sender, 'image').catch(_ => 'https://telegra.ph/file/6880771a42bad09dd6087.jpg')
+                let ppnyauser = await ptz.profilePictureUrl(m.sender, 'image').catch(_ => 'https://telegra.ph/file/6880771a42bad09dd6087.jpg')
                 const rest = await quote(text, pushname, ppnyauser)
-                ptz.sendImageAsSticker(m?.chat, rest.result, m, {
+                ptz.sendImageAsSticker(m.chat, rest.result, m, {
                     packname: `${global.packname}`,
                     author: `${global.author}`
                 })
@@ -5680,7 +5906,7 @@ ${readmore}
                 if (!quoted) return reply(`Balas Video/Image Dengan Caption ${prefix + command}`)
                 if (/image/.test(mime)) {
                     let media = await quoted.download()
-                    let encmedia = await ptz.sendImageAsSticker(m?.chat, media, m, {
+                    let encmedia = await ptz.sendImageAsSticker(m.chat, media, m, {
                         packname: global.packname,
                         author: global.author
                     })
@@ -5688,7 +5914,7 @@ ${readmore}
                 } else if (/video/.test(mime)) {
                     if ((quoted.msg || quoted).seconds > 11) return reply('Maksimal 10 detik!')
                     let media = await quoted.download()
-                    let encmedia = await ptz.sendVideoAsSticker(m?.chat, media, m, {
+                    let encmedia = await ptz.sendVideoAsSticker(m.chat, media, m, {
                         packname: global.packname,
                         author: global.author
                     })
@@ -5709,7 +5935,7 @@ ${readmore}
                     let dwnld = await ptz.downloadAndSaveMediaMessage(qmsg)
                     let fatGans = await TelegraPH(dwnld)
                     let smeme = `https://api.memegen.link/images/custom/${encodeURIComponent(bawah)}/${encodeURIComponent(atas)}.png?background=${fatGans}`
-                    let FaTiH = await ptz.sendImageAsSticker(m?.chat, smeme, m, {
+                    let FaTiH = await ptz.sendImageAsSticker(m.chat, smeme, m, {
                         packname: global.packname,
                         author: global.auhor
                     })
@@ -5724,7 +5950,7 @@ ${readmore}
                 if (!teks2) return reply(`Kirim/reply image/video dengan caption ${prefix + command} teks1|teks2`)
                 if (/image/.test(mime)) {
                     let media = await ptz.downloadMediaMessage(qmsg)
-                    let encmedia = await ptz.sendImageAsSticker(m?.chat, media, m, {
+                    let encmedia = await ptz.sendImageAsSticker(m.chat, media, m, {
                         packname: teks1,
                         author: teks2
                     })
@@ -5732,7 +5958,7 @@ ${readmore}
                 } else if (/video/.test(mime)) {
                     if ((quoted.msg || quoted).seconds > 11) return reply('Maksimal 10 detik!')
                     let media = await ptz.downloadMediaMessage(qmsg)
-                    let encmedia = await ptz.sendVideoAsSticker(m?.chat, media, m, {
+                    let encmedia = await ptz.sendVideoAsSticker(m.chat, media, m, {
                         packname: teks1,
                         author: teks2
                     })
@@ -5760,7 +5986,7 @@ ${readmore}
                         for (let i = 0; i < totalCount; i++) {
                             try {
                                 await new Promise(resolve => setTimeout(resolve, i * 6000));
-                                ptz.sendMessage(m?.chat, {
+                                ptz.sendMessage(m.chat, {
                                     image: {
                                         url: imagesUrls[i]
                                     },
@@ -5794,7 +6020,7 @@ ${readmore}
  ${runtime(process.uptime())} 
 
  *s ᴇ ʀ ᴠ ᴇ ʀ* 
- *🛑 ʀᴀᴍ:* ${formatSize(ramused)} (${persenramm?.toString().split('.')[0]}%) / ${formatSize(totalram)} 
+ *🛑 ʀᴀᴍ:* ${formatSize(ramused)} (${persenramm.toString().split('.')[0]}%) / ${formatSize(totalram)} 
  *🔵 ғʀᴇᴇRAM:* ${formatSize(sisaram)} 
  *🔴 ᴍᴇᴍᴏʀy:* ${ram}
  *🗂 ᴅɪꜱᴋ:* ${formatSize(diskused)} / ${formatSize(totalspace)}
@@ -5850,7 +6076,7 @@ cpu.total
 : ""
 }
 `.trim();
- ptz.relayMessage(m?.chat, {
+ ptz.relayMessage(m.chat, {
      requestPaymentMessage: {
          currencyCodeIso4217: 'IDR',
          requestFrom: '0@s.whatsapp.net',
@@ -5858,7 +6084,7 @@ cpu.total
              extendedTextMessage: {
                  text: respon,
                  contextInfo: {
-                     mentionedJid: [m?.sender],
+                     mentionedJid: [m.sender],
                      externalAdReply: {
                          showAdAttribution: true
                      }
@@ -5908,11 +6134,12 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
             default:
                 if (userdb.game) {
                     if (budy) {
+                      if (prefix) return
                         if (userdb.tebakgambar === true) {
                             kuis = true;
                             let jawaban = userdb.jawaban
                             let userJawaban = m.text.toUpperCase();
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*');
                                 delete tebakgambar[m.sender.split('@')[0]];
@@ -5930,7 +6157,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                             kuis = true;
                             jawaban = userdb.jawaban
                             jawabres = m.text.toUpperCase();
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebakkata = false
@@ -5948,7 +6175,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                             kuis = true;
                             jawaban = userdb.jawaban
                             jawabres = m.text
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebakkalimat = false
@@ -5966,7 +6193,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                             kuis = true;
                             jawabanban = userdb.jawaban
                             jawabresres = m.text.charAt(0).toUpperCase() + m.text.slice(1);
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebaklirik = false
@@ -5986,7 +6213,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                                 kuis = true;
                                 jawabanya = userdb.jawaban
                                 jawabresya = m.text
-                                if (m.text == "nyerah") {
+                                if (m.text.toLowerCase() == "nyerah") {
                                     userdb.game = false
                                     await reply('*Anda Telah menyerah*')
                                     userdb.tebaktebakan = false
@@ -6007,7 +6234,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                             kuis = true;
                             jawabanyaa = userdb.jawaban
                             jawabresyaa = m.text
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebakbendera = false
@@ -6025,7 +6252,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                             kuis = true;
                             jawabanyaaa = userdb.jawaban
                             jawabresyaaa = m.text
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebakkimia = false
@@ -6041,7 +6268,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                             }
 
                         } else if (userdb.tebaktekateki === true) {
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebaktekateki = false
@@ -6056,7 +6283,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                                 reply('*Jawaban Salah!*')
                             }
                         } else if (userdb.tebaksusunkata === true) {
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebaksusunkata = false
@@ -6071,7 +6298,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                                 reply('*Jawaban Salah!*')
                             }
                         } else if (userdb.tebaksiapaaku === true) {
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebaksiapaaku = false
@@ -6086,7 +6313,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                                 reply('*Jawaban Salah!*')
                             }
                         } else if (userdb.tebakasahotak === true) {
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.tebakasahotak = false
@@ -6101,7 +6328,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                                 reply('*Jawaban Salah!*')
                             }
                         } else if (userdb.kuismath === true) {
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*')
                                 userdb.kuismath = false
@@ -6116,7 +6343,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                                 reply('*Jawaban Salah!*')
                             }
                         } else if (userdb.caklontong === true) {
-                            if (m.text == "nyerah") {
+                            if (m.text.toLowerCase() == "nyerah") {
                                 userdb.game = false
                                 await reply('*Anda Telah menyerah*');
                                 userdb.caklontong = false;
@@ -6135,9 +6362,22 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                         } else {}
                     }
                 }
-
+                
+                    let find = Object.values(ptz.menfes).find(menpes => [menpes.a, menpes.b].includes(m.sender) && menpes.state === 'CHATTING');
+    if (find) {
+                    if (budy) {
+                      if (prefix) return   
+                      if (m.fromMe) return
+    const to = find.a === m.sender ? find.b : find.a;
+    await ptz.sendMessage(to, {
+        text: m.text,
+        mentions: [m.sender]
+    });
+    reactmess("☑")
+    }
+ }
                 if (budy.startsWith('=>')) {
-                if (!isJadibot) return 
+                if (isJadibot) return 
                     if (!isCreator) return 
 
                     function Return(sul) {
@@ -6150,14 +6390,14 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                     }
                     try {
                        let resun = util.format(eval(`(async () => { return ${budy.slice(3)} })()`))
-                       reply(resun, "6283117190495@s.whatsapp.net")
+                       m.reply(resun)
                     } catch (e) {
                         m.reply(String(e))
                     }
                 }
 
                 if (budy.startsWith('>')) {
-                if (!isJadibot) return 
+                if (isJadibot) return 
                     if (!isCreator) return 
                     let kode = budy.trim().split(/ +/)[0]
                     let teks
@@ -6171,7 +6411,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                 }
 
                 if (budy.startsWith('ee')) {
-                if (!isJadibot) return 
+                if (isJadibot) return 
                     if (!isCreator) return 
                     let kode = budy.trim().split(/ +/)[0]
                     let teks
@@ -6185,7 +6425,7 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                 }
 
                 if (budy.startsWith('$')) {
-                if (!isJadibot) return 
+                if (isJadibot) return 
                     if (!isCreator) return 
                     exec(budy.slice(2), (err, stdout) => {
                         if (err) return m.reply(`${err}`)
@@ -6193,29 +6433,15 @@ fs.readFile(namaFile, 'utf8', (err, data) => {
                     })
                 }
 
-                if ((m?.mtype === 'groupInviteMessage' || m?.text.startsWith('Undangan untuk bergabung') || m?.text.startsWith('Invitation to join') || m?.text.startsWith('Buka tautan ini')) && !m?.isBaileys && !m?.isGroup) {
-                    await ptz.sendMessage(m?.chat, {
+                if ((m.mtype === 'groupInviteMessage' || m.text.startsWith('Undangan untuk bergabung') || m.text.startsWith('Invitation to join') || m.text.startsWith('Buka tautan ini')) && !m.isBaileys && !m.isGroup) {
+                    await ptz.sendMessage(m.chat, {
                         react: {
                             text: `🤨`,
-                            key: m?.key,
+                            key: m.key,
                         }
                     })
                     let teks = 'group apa itu'
                     m.reply(teks)
-                }
-
-                if (!m?.fromMe & !m?.isGroup) {
-                    let user = global.db.data.users[m?.sender];
-                    const cooldown = 21600000;
-                    if (new Date() - user.pc < cooldown) return;
-                    let caption = `Hᴀʟᴏ @${m?.sender.split('@')[0]} ${ucapanWaktu}, ᴀᴅᴀ ᴀᴘᴀ ? ꜱɪʟᴀʜᴋᴀɴ ᴛɪɴɢɢᴀʟᴋᴀɴ ᴄʜᴀᴛ ᴅᴀɴ ᴏᴡɴᴇʀ ꜱᴀʏᴀ ᴀᴋᴀɴ ᴍᴇᴍʙᴀʟᴀꜱ ꜱᴇᴄᴇᴘᴀᴛ ᴍᴜɴɢᴋɪɴ. ~ ɢᴜᴍᴅʀᴀᴍᴏɴ`.trim();
-                    ptz.sendMessage(m?.chat, {
-                        text: caption,
-                        mentions: [m?.sender]
-                    }, {
-                        quoted: fsaluran
-                    })
-                    user.pc = new Date() * 1;
                 }
         }
     } catch (err) {
